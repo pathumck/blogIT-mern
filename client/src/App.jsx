@@ -1,8 +1,10 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout/Layout";
-import { RouteIndex } from "./helpers/RouteName";
+import { RouteIndex, RouteSignIn, RouteSignUp } from "./helpers/RouteName";
 import Index from "./pages/Index";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   
@@ -12,6 +14,8 @@ function App() {
         <Routes>
           <Route path={RouteIndex} element={<Layout />} />
           {/* <Route index element={<Index />} /> */}
+          <Route path={RouteSignIn} element={<SignIn />} />
+          <Route path={RouteSignUp} element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </>

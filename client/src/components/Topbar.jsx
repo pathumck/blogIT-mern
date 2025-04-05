@@ -15,8 +15,8 @@ function Topbar() {
         <SearchBox />
       </div>
       <div>
-        <Button asChild>
-          <Link to="" className="rounded-full">
+        <Button asChild className="rounded-full">
+          <Link to="/sign-in">
             <MdLogin />
             Sign In
           </Link>
