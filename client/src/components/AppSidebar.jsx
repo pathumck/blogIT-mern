@@ -1,0 +1,74 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "./ui/sidebar";
+import logo from "../assets/blogger.png";
+import { IoHomeOutline } from "react-icons/io5";
+import { BiCategory } from "react-icons/bi";
+import { FaBlogger, FaRegComments } from "react-icons/fa";
+import { FiUsers } from "react-icons/fi";
+import { GoDot } from "react-icons/go";
+
+export const AppSidebar = () => {
+  return (
+    <>
+      <Sidebar>
+        <SidebarHeader className="bg-indigo-200">
+          <img src={logo} width={40} alt="logo" />
+        </SidebarHeader>
+        <SidebarContent className="bg-indigo-200">
+          <SidebarGroup>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <IoHomeOutline />
+                  <Link to="">Home</Link>
+                </SidebarMenuButton>
+                <SidebarMenuButton>
+                  <BiCategory />
+                  <Link to="">Categories</Link>
+                </SidebarMenuButton>
+                <SidebarMenuButton>
+                  <FaBlogger />
+                  <Link to="">Blogs</Link>
+                </SidebarMenuButton>
+                <SidebarMenuButton>
+                  <FaRegComments />
+                  <Link to="">Comments</Link>
+                </SidebarMenuButton>
+                <SidebarMenuButton>
+                  <FiUsers />
+                  <Link to="">Users</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+
+          <SidebarGroup>
+            <SidebarGroupLabel>Categories</SidebarGroupLabel>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <GoDot />
+                  <Link to="">Home</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter className="bg-indigo-200" />
+      </Sidebar>
+    </>
+  );
+};
+
+export default AppSidebar;
