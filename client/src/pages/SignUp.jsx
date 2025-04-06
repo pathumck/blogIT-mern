@@ -18,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RouteSignIn } from "@/helpers/RouteName";
 import { getEnv } from "@/helpers/getEnv";
 import { showToast } from "@/helpers/showToast";
+import GoogleLogin from "@/components/GoogleLogin";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -71,13 +72,20 @@ function SignUp() {
   }
   return (
     <div className="flex justify-center items-center h-screen w-screen">
-      <Card className="w-[300px] p-5">
-        <h1 className="text-2xl font-extrabold text-center mb-2 text-gray-600">
+      <Card className="w-[400px] p-2">
+        <h1 className="text-2xl font-extrabold text-center text-gray-600">
           Create your account
         </h1>
+      <div className="text-center">
+        <GoogleLogin />
+        <div className="border-1 mt-6 flex justify-center items-center">
+        <span className="absolute text-gray-600 bg-white text-sm">or</span>
+        </div>
+       
+      </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="mb-3">
+            <div>
               <FormField
                 control={form.control}
                 name="name"
@@ -96,7 +104,7 @@ function SignUp() {
               />
             </div>
 
-            <div className="mb-3">
+            <div>
               <FormField
                 control={form.control}
                 name="email"
@@ -115,7 +123,7 @@ function SignUp() {
               />
             </div>
 
-            <div className="mb-3">
+            <div>
               <FormField
                 control={form.control}
                 name="password"
@@ -138,7 +146,7 @@ function SignUp() {
               />
             </div>
 
-            <div className="mb-3">
+            <div className="mb-5">
               <FormField
                 control={form.control}
                 name="confirmPassword"
@@ -161,7 +169,7 @@ function SignUp() {
               />
             </div>
 
-            <div className="mt-5">
+            <div>
               <Button type="submit" className="w-full">
                 Sign Up
               </Button>
