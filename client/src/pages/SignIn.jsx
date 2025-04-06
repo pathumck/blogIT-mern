@@ -43,7 +43,7 @@ function SignIn() {
             <div className="mb-3">
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='text-gray-600 font-semibold'>Email</FormLabel>
@@ -60,7 +60,7 @@ function SignIn() {
             <div className="mb-3">
               <FormField
                 control={form.control}
-                name="username"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='text-gray-600 font-semibold'>Password</FormLabel>

@@ -14,21 +14,26 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Card } from "@/components/ui/card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteSignIn } from "@/helpers/RouteName";
+import { getEnv } from "@/helpers/getEnv";
+import { showToast } from "@/helpers/showToast";
 
 function SignUp() {
-  const formSchema = z.object({
-    name: z.string().min(3, "Name must be at least 3 characters long"),
-    email: z.string().email(),
-    password: z.string().min(8, "Password must be at least 8 characters long"),
-    confirmPassword: z
-      .string()
-      .refine(
-        (data) => data.password === data.confirmPassword,
-        "Password and confirm password do not match"
-      ),
-  });
+  const navigate = useNavigate();
+  const formSchema = z
+    .object({
+      name: z.string().min(3, "Name must be at least 3 characters long"),
+      email: z.string().email(),
+      password: z
+        .string()
+        .min(8, "Password must be at least 8 characters long"),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -40,8 +45,29 @@ function SignUp() {
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
+  async function onSubmit(values) {
+    try {
+      const response = await fetch(
+        `${getEnv("VITE_API_BASE_URL")}/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        showToast("error", data.message);
+        return;
+      }
+
+      navigate(RouteSignIn);
+      showToast("success", data.message);
+    } catch (error) {
+      showToast("error", error.message);
+    }
   }
   return (
     <div className="flex justify-center items-center h-screen w-screen">
@@ -54,7 +80,7 @@ function SignUp() {
             <div className="mb-3">
               <FormField
                 control={form.control}
-                name="username"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-gray-600 font-semibold">
@@ -73,7 +99,7 @@ function SignUp() {
             <div className="mb-3">
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-gray-600 font-semibold">
@@ -92,14 +118,18 @@ function SignUp() {
             <div className="mb-3">
               <FormField
                 control={form.control}
-                name="username"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-gray-600 font-semibold">
                       Password
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your password" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription></FormDescription>
                     <FormMessage />
@@ -111,7 +141,7 @@ function SignUp() {
             <div className="mb-3">
               <FormField
                 control={form.control}
-                name=""
+                name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-gray-600 font-semibold">
@@ -119,6 +149,7 @@ function SignUp() {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        type="password"
                         placeholder="Enter your password again"
                         {...field}
                       />
