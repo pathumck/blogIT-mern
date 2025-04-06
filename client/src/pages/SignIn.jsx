@@ -37,7 +37,7 @@ function SignIn() {
   return (
     <div className="flex justify-center items-center h-screen w-screen">
       <Card className="w-[300px] p-5">
-        <h1 className="text-2xl font-bold text-center mb-2">Login to your account</h1>
+        <h1 className="text-2xl font-extrabold text-center mb-2 text-gray-600">Login to your account</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="mb-3">
@@ -46,7 +46,7 @@ function SignIn() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className='text-gray-600 font-semibold'>Email</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter your email" {...field} />
                     </FormControl>
@@ -63,7 +63,7 @@ function SignIn() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel className='text-gray-600 font-semibold'>Password</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter your password" {...field} />
                     </FormControl>
