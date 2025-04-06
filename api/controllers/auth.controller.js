@@ -37,9 +37,9 @@ export const Login = async (req, res, next) => {
       next(handleError(404, "Invalid login credentials."));
     }
     const hashedPassword = user.password;
-    const comparePassword = bcrypt.compare(password, hashedPassword);
+    const comparePassword = await bcrypt.compare(password, hashedPassword);
     if (!comparePassword) {
-      next(handleError(404, "Invalid login credentials."));
+      return next(handleError(404, "Invalid login credentials."));
     }
     const token = jwt.sign(
       {
@@ -50,18 +50,19 @@ export const Login = async (req, res, next) => {
       },
       process.env.JWT_SECRET
     );
-    res.cookie('access_token', token, {
-      httpOnly :true,
-      secure : process.env.NODE_ENV === 'production',
-      sameSite : process.env.NODE_ENV === 'production'? 'none' : 'strict',
-      path:'/'
-    })
-
-    res.status(200).json ({
-      success:true,
-      user,
-      message : 'Login successful.'
-    })
+    res.cookie("access_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      path: "/",
+    });
+    const userWithoutPassword = user.toObject();
+    delete userWithoutPassword.password;
+    res.status(200).json({
+      success: true,
+      user: userWithoutPassword,
+      message: "Login successful.",
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }
