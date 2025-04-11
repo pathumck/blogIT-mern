@@ -71,7 +71,7 @@ function SignUp() {
     }
   }
   return (
-    <div className="flex justify-center items-center h-screen w-screen">
+    <div className="flex justify-center items-center overflow-scrollbar min-h-screen p-4">
       <Card className="w-[400px] p-2">
         <h1 className="text-2xl font-extrabold text-center text-gray-600">
           Create your account

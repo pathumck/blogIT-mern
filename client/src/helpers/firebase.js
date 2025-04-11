@@ -10,12 +10,12 @@ import { getEnv } from "./getEnv";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: getEnv("VITE_FIREBASE_API"),
-  authDomain: "mern-blog-a6c36.firebaseapp.com",
-  projectId: "mern-blog-a6c36",
-  storageBucket: "mern-blog-a6c36.firebasestorage.app",
-  messagingSenderId: "449033275754",
-  appId: "1:449033275754:web:c4c506ca2a98f89a887d13",
-  measurementId: "G-ZCR3Q75P5V"
+  authDomain: "mern-blog-c450d.firebaseapp.com",
+  projectId: "mern-blog-c450d",
+  storageBucket: "mern-blog-c450d.firebasestorage.app",
+  messagingSenderId: "170110316790",
+  appId: "1:170110316790:web:e0febd697d0062df96bcd7",
+  measurementId: "G-87469M60PQ",
 };
 
 // Initialize Firebase
