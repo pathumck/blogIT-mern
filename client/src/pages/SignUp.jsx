@@ -76,13 +76,12 @@ function SignUp() {
         <h1 className="text-2xl font-extrabold text-center text-gray-600">
           Create your account
         </h1>
-      <div className="text-center">
-        <GoogleLogin />
-        <div className="border-1 mt-6 flex justify-center items-center">
-        <span className="absolute text-gray-600 bg-white text-sm">or</span>
+        <div className="text-center">
+          <GoogleLogin />
+          <div className="border-1 mt-6 flex justify-center items-center">
+            <span className="absolute text-gray-600 bg-white text-sm">or</span>
+          </div>
         </div>
-       
-      </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div>
