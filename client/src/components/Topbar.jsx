@@ -21,7 +21,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { showToast } from "@/helpers/showToast";
 import { removeUser } from "@/redux/user.slice";
 import { getEnv } from "@/helpers/getEnv";
-import { RouteIndex } from "@/helpers/RouteName";
+import { RouteIndex, RouteProfile } from "@/helpers/RouteName";
 
 function Topbar() {
   const dispatch = useDispatch();
@@ -82,7 +82,7 @@ function Topbar() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild className={"cursor-pointer"}>
-                <Link to="/profile">
+                <Link to={RouteProfile}>
                   <FaRegUser />
                   Profile
                 </Link>
