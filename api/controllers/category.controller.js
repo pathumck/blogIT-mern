@@ -7,7 +7,9 @@ export const addCategory = async (req, res, next) => {
     const category = new Category({ name, slug });
 
     await category.save();
-    res.status(201).json({ success: true, message: "Category added successfully." });
+    res
+      .status(201)
+      .json({ success: true, message: "Category added successfully." });
   } catch (error) {
     next(handleError(500, error.message));
   }
@@ -36,6 +38,11 @@ export const deleteCategory = async (req, res, next) => {
 
 export const getAllCategory = async (req, res, next) => {
   try {
+    const category = await Category.find().sort({ name: 1 }).lean().exec();
+    res.status(200).json({
+      success: true,
+      data: category,
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }
