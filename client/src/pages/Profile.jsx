@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { getEnv } from "@/helpers/getEnv";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/redux/user.slice";
+
 import { RouteIndex } from "@/helpers/RouteName";
 import { showToast } from "@/helpers/showToast";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,11 +25,14 @@ import { useFetch } from "@/hooks/useFetch";
 import Loading from "@/components/Loading";
 import { FaCamera } from "react-icons/fa";
 import Dropzone from "react-dropzone";
+import { setUser } from "@/redux/user.slice";
+import avatar from "../assets/avatar.png";
 
 function Profile() {
   const [filePreview, setPreview] = useState();
   const [file, setFile] = useState(null);
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const {
     data: userData,
     loading,
@@ -40,12 +43,13 @@ function Profile() {
   );
 
   console.log(userData);
-  const dispatch = useDispatch();
   const formSchema = z.object({
     name: z.string().min(3, "Name must be altest 3 characters long"),
     email: z.string().email(),
     bio: z.string().min(3, "Bio must be altest 3 characters long"),
-    password: z.string(),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters long"),
   });
 
   const form = useForm({
@@ -73,11 +77,11 @@ function Profile() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append('data', JSON.stringify(values));
+      formData.append("data", JSON.stringify(values));
       const response = await fetch(
         `${getEnv("VITE_API_BASE_URL")}/user/update-user/${userData.user._id}`,
         {
-          method: "POST",
+          method: "PUT",
           credentials: "include",
           body: formData,
         }
@@ -100,6 +104,8 @@ function Profile() {
     setFile(file);
     setPreview(preview);
   };
+  console.log(filePreview);
+  console.log(userData);
   if (loading) return <Loading />;
   return (
     <Card className="max-w-screen-md mx-auto">
@@ -113,7 +119,14 @@ function Profile() {
                 <input {...getInputProps()} />
                 <Avatar className="w-24 h-24 relative group">
                   <AvatarImage
-                    src={filePreview ? filePreview : userData?.user?.avatar}
+                   src={
+                    filePreview
+                      ? filePreview
+                      : userData.user.avatar
+                      ? userData.user.avatar
+                      : avatar
+                  }
+                  
                   />
                   <div className="absolute z-50 w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center bg-black opacity-40 border-2 border-orange-500 rounded-full group-hover:flex hidden cursor-pointer">
                     <FaCamera className="text-orange-500" />
