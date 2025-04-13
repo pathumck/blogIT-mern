@@ -18,7 +18,7 @@ export const addCategory = async (req, res, next) => {
 export const showCategory = async (req, res, next) => {
   try {
     const { categoryid } = req.params;
-    const category = await Category.findById(categoryid)
+    const category = await Category.findById(categoryid);
     if (!category) {
       next(handleError(404, "Category not found."));
     }
@@ -35,7 +35,11 @@ export const updateCategory = async (req, res, next) => {
   try {
     const { categoryid } = req.params;
     const { name, slug } = req.body;
-    const category = await Category.findByIdAndUpdate(categoryid, { name, slug }, {new: true});
+    const category = await Category.findByIdAndUpdate(
+      categoryid,
+      { name, slug },
+      { new: true }
+    );
     res
       .status(201)
       .json({ success: true, message: "Category updated successfully." });
@@ -46,6 +50,11 @@ export const updateCategory = async (req, res, next) => {
 
 export const deleteCategory = async (req, res, next) => {
   try {
+    const { categoryid } = req.params;
+    await Category.findByIdAndDelete(categoryid);
+    res
+      .status(201)
+      .json({ success: true, message: "Category deleted successfully." });
   } catch (error) {
     next(handleError(500, error.message));
   }

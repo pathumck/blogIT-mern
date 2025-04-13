@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { RouteAddCategory, RouteEditCategory } from "@/helpers/RouteName";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Table,
@@ -17,16 +17,35 @@ import { getEnv } from "@/helpers/getEnv";
 import Loading from "@/components/Loading";
 import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
+import { showToast } from "@/helpers/showToast";
+import { deleteData } from "@/helpers/handleDelete";
 
 function CategoryDetails() {
+  const [refreshData, setRefreshData] = useState(false);
   const {
     data: categoryData,
     loading,
     error,
-  } = useFetch(`${getEnv("VITE_API_BASE_URL")}/category/all-category`, {
-    method: "GET",
-    credentials: "include",
-  });
+  } = useFetch(
+    `${getEnv("VITE_API_BASE_URL")}/category/all-category`,
+    {
+      method: "GET",
+      credentials: "include",
+    },
+    [refreshData]
+  );
+
+  const handleDelete = (id) => {
+    const response = deleteData(
+      `${getEnv("VITE_API_BASE_URL")}/category/delete/${id}`
+    );
+    if (response) {
+      setRefreshData(!refreshData);
+      showToast("success", "Category deleted successfully");
+    } else {
+      showToast("error", "Something went wrong");
+    }
+  };
   if (loading) return <Loading />;
   return (
     <div>
@@ -65,6 +84,7 @@ function CategoryDetails() {
                         </Link>
                       </Button>
                       <Button
+                        onClick={() => handleDelete(category._id)}
                         variant="outline"
                         className="hover:bg-orange-400 hover:text-white cursor-pointer"
                       >
