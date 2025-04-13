@@ -17,6 +17,15 @@ export const addCategory = async (req, res, next) => {
 
 export const showCategory = async (req, res, next) => {
   try {
+    const { categoryid } = req.params;
+    const category = await Category.findById(categoryid)
+    if (!category) {
+      next(handleError(404, "Category not found."));
+    }
+    res.status(200).json({
+      success: true,
+      data: category,
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }
@@ -24,6 +33,12 @@ export const showCategory = async (req, res, next) => {
 
 export const updateCategory = async (req, res, next) => {
   try {
+    const { categoryid } = req.params;
+    const { name, slug } = req.body;
+    const category = await Category.findByIdAndUpdate(categoryid, { name, slug }, {new: true});
+    res
+      .status(201)
+      .json({ success: true, message: "Category updated successfully." });
   } catch (error) {
     next(handleError(500, error.message));
   }
