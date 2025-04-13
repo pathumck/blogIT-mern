@@ -17,12 +17,10 @@ import { showToast } from "@/helpers/showToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
 import slugify from "slugify";
 import z from "zod";
 
 function AddCategory() {
-  const navigate = useNavigate();
   const formSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters long"),
     slug: z.string().min(3, "Slug must be at least 3 characters long"),
@@ -45,27 +43,27 @@ function AddCategory() {
   }, [form.watch("name")]);
 
   async function onSubmit(values) {
-    // try {
-    //   const response = await fetch(
-    //     `${getEnv("VITE_API_BASE_URL")}/auth/register`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(values),
-    //     }
-    //   );
-    //   const data = await response.json();
-    //   if (!response.ok) {
-    //     showToast("error", data.message);
-    //     return;
-    //   }
-    //   navigate(RouteSignIn);
-    //   showToast("success", data.message);
-    // } catch (error) {
-    //   showToast("error", error.message);
-    // }
+    try {
+      const response = await fetch(
+        `${getEnv("VITE_API_BASE_URL")}/category/add`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        showToast("error", data.message);
+        return;
+      }
+      form.reset();
+      showToast("success", data.message);
+    } catch (error) {
+      showToast("error", error.message);
+    }
   }
   return (
     <div>
