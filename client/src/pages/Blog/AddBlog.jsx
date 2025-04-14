@@ -1,4 +1,3 @@
-import GoogleLogin from "@/components/GoogleLogin";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -12,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { getEnv } from "@/helpers/getEnv";
-import { RouteSignIn } from "@/helpers/RouteName";
+import { RouteBlog } from "@/helpers/RouteName";
 import { showToast } from "@/helpers/showToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
@@ -27,13 +26,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useFetch } from "@/hooks/useFetch";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import { FaCamera } from "react-icons/fa";
 import Dropzone from "react-dropzone";
 import { FaPlus } from "react-icons/fa";
 import Editor from "@/components/Editor";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function AddBlog() {
+  const user = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
   const {
     data: categoryData,
     loading,
@@ -68,7 +69,7 @@ function AddBlog() {
   const handleEditorData = (event, editor) => {
     const data = editor.getData();
     form.setValue("blogContent", data);
-  }
+  };
 
   useEffect(() => {
     const blogTitle = form.watch("title");
@@ -79,28 +80,35 @@ function AddBlog() {
   }, [form.watch("title")]);
 
   async function onSubmit(values) {
-    console.log(values);
-    // try {
-    //   const response = await fetch(
-    //     `${getEnv("VITE_API_BASE_URL")}/category/add`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(values),
-    //     }
-    //   );
-    //   const data = await response.json();
-    //   if (!response.ok) {
-    //     showToast("error", data.message);
-    //     return;
-    //   }
-    //   form.reset();
-    //   showToast("success", data.message);
-    // } catch (error) {
-    //   showToast("error", error.message);
-    // }
+    try {
+      const newValues = { ...values, author: user._id };
+      console.log(newValues);
+      if (!file) {
+        showToast("error", "Feature Image is required");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("data", JSON.stringify(newValues));
+      const response = await fetch(`${getEnv("VITE_API_BASE_URL")}/blog/add`, {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        showToast("error", data.message);
+        return;
+      }
+      form.reset();
+      setFile();
+      setPreview();
+      navigate(RouteBlog);
+
+      showToast("success", data.message);
+    } catch (error) {
+      showToast("error", error.message);
+    }
   }
 
   const handleFileSelection = (files) => {
@@ -125,7 +133,10 @@ function AddBlog() {
                         Category
                       </FormLabel>
                       <FormControl>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select a category" />
                           </SelectTrigger>
@@ -225,7 +236,12 @@ function AddBlog() {
                       </FormLabel>
                       <FormControl>
                         <div className="overflow-auto border rounded p-2">
-                          <Editor props={{ initialData: "", onChange : handleEditorData }} />
+                          <Editor
+                            props={{
+                              initialData: "",
+                              onChange: handleEditorData,
+                            }}
+                          />
                         </div>
                       </FormControl>
 
