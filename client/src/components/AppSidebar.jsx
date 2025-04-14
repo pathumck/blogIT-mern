@@ -17,7 +17,7 @@ import { BiCategory } from "react-icons/bi";
 import { FaBlogger, FaRegComments } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { GoDot } from "react-icons/go";
-import { RouteCategoryDetails } from "@/helpers/RouteName";
+import { RouteBlog, RouteCategoryDetails } from "@/helpers/RouteName";
 
 export const AppSidebar = () => {
   return (
@@ -40,7 +40,7 @@ export const AppSidebar = () => {
                 </SidebarMenuButton>
                 <SidebarMenuButton>
                   <FaBlogger />
-                  <Link to="">Blogs</Link>
+                  <Link to={RouteBlog}>Blogs</Link>
                 </SidebarMenuButton>
                 <SidebarMenuButton>
                   <FaRegComments />
