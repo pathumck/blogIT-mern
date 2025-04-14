@@ -35,6 +35,15 @@ export const addBlog = async (req, res, next) => {
 
 export const editBlog = async (req, res, next) => {
   try {
+    const { blogid } = req.params;
+    const blog = await Blog.findById(blogid).populate("category", "name");
+    if (!blog) {
+      next(handleError(404, "Blog not found."));
+    }
+    res.status(200).json({
+      success: true,
+      data: blog,
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }
@@ -48,6 +57,11 @@ export const updateBlog = async (req, res, next) => {
 
 export const deleteBlog = async (req, res, next) => {
   try {
+    const { blogid } = req.params;
+    await Blog.findByIdAndDelete(blogid);
+    res
+      .status(201)
+      .json({ success: true, message: "Blog deleted successfully." });
   } catch (error) {
     next(handleError(500, error.message));
   }
@@ -55,6 +69,13 @@ export const deleteBlog = async (req, res, next) => {
 
 export const showAllBlog = async (req, res, next) => {
   try {
+    const blog = await Blog.find()
+      .populate("author", "name")
+      .populate("category", "name")
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec();
+    res.status(200).json({ success: true, data: blog });
   } catch (error) {
     next(handleError(500, error.message));
   }

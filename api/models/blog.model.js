@@ -12,6 +12,11 @@ const blogSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     slug: {
       type: String,
       required: true,
