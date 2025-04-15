@@ -18,8 +18,15 @@ import { FaBlogger, FaRegComments } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { GoDot } from "react-icons/go";
 import { RouteBlog, RouteCategoryDetails } from "@/helpers/RouteName";
+import { useFetch } from "@/hooks/useFetch";
+import { getEnv } from "@/helpers/getEnv";
 
 export const AppSidebar = () => {
+  const {
+    data: categoryData  } = useFetch(`${getEnv("VITE_API_BASE_URL")}/category/all-category`, {
+    method: "GET",
+    credentials: "include",
+  });
   return (
     <>
       <Sidebar>
@@ -29,6 +36,7 @@ export const AppSidebar = () => {
         <SidebarContent className="bg-indigo-200">
           <SidebarGroup>
             <SidebarMenu>
+             
               <SidebarMenuItem>
                 <SidebarMenuButton>
                   <IoHomeOutline />
@@ -57,12 +65,17 @@ export const AppSidebar = () => {
           <SidebarGroup>
             <SidebarGroupLabel>Categories</SidebarGroupLabel>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <GoDot />
-                  <Link to="">Home</Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+            {categoryData && categoryData.data.length > 0 && 
+                categoryData.data.map((category) => (
+                  <SidebarMenuItem key={category._id}>
+                  <SidebarMenuButton>
+                    <GoDot />
+                    <Link to="">{category.name}</Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                ))
+              }
+             
             </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>

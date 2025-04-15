@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -11,8 +11,43 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Link } from "react-router-dom";
-import { RouteBlogAdd } from "@/helpers/RouteName";
+import { RouteBlogAdd, RouteBlogEdit } from "@/helpers/RouteName";
+import { getEnv } from "@/helpers/getEnv";
+import { deleteData } from "@/helpers/handleDelete";
+import { showToast } from "@/helpers/showToast";
+import Loading from "@/components/Loading";
+import { FaRegEdit } from "react-icons/fa";
+import { IoTrashOutline } from "react-icons/io5";
+import { useFetch } from "@/hooks/useFetch";
+import moment from "moment";
 function BlogDetails() {
+   const [refreshData, setRefreshData] = useState(false);
+    const {
+      data: blogData,
+      loading,
+      error,
+    } = useFetch(
+      `${getEnv("VITE_API_BASE_URL")}/blog/get-all`,
+      {
+        method: "GET",
+        credentials: "include",
+      },
+      [refreshData]
+    );
+  
+    const handleDelete = (id) => {
+      const response = deleteData(
+        `${getEnv("VITE_API_BASE_URL")}/blog/delete/${id}`
+      );
+      if (response) {
+        setRefreshData(!refreshData);
+        showToast("success", "Category deleted successfully");
+      } else {
+        showToast("error", "Something went wrong");
+      }
+    };
+    if (loading) return <Loading />;
+    console.log(blogData);
   return (
     <div>
       <Card>
@@ -36,24 +71,27 @@ function BlogDetails() {
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
-            {/* <TableBody>
-              {categoryData.data && categoryData.data.length > 0 ? (
-                categoryData.data.map((category) => (
-                  <TableRow key={category._id}>
-                    <TableCell>{category.name}</TableCell>
-                    <TableCell>{category.slug}</TableCell>
+            <TableBody>
+              {blogData.data && blogData.data.length > 0 ? (
+                blogData.data.map((blog) => (
+                  <TableRow key={blog._id}>
+                    <TableCell>{blog?.author?.name}</TableCell>
+                    <TableCell>{blog?.category?.name}</TableCell>
+                    <TableCell>{blog?.title}</TableCell>
+                    <TableCell>{blog?.slug}</TableCell>
+                    <TableCell>{moment(blog?.createdAt).format("DD-MM-YYYY")}</TableCell>
                     <TableCell className="flex gap-2">
                       <Button
                         variant="outline"
                         className="hover:bg-orange-400 hover:text-white"
                         asChild
                       >
-                        <Link to={RouteEditCategory(category._id)}>
+                        <Link to={RouteBlogEdit(blog._id)}>
                           <FaRegEdit />
                         </Link>
                       </Button>
                       <Button
-                        onClick={() => handleDelete(category._id)}
+                        onClick={() => handleDelete(blog._id)}
                         variant="outline"
                         className="hover:bg-orange-400 hover:text-white cursor-pointer"
                       >
@@ -65,14 +103,14 @@ function BlogDetails() {
               ) : (
                 <TableRow>
                   <TableCell
-                    colSpan={3}
+                    colSpan={6}
                     className="text-center text-red-500 font-bold"
                   >
-                    No Category Found
+                    No Blog Found
                   </TableCell>
                 </TableRow>
               )}
-            </TableBody> */}
+            </TableBody>
           </Table>
         </CardContent>
       </Card>

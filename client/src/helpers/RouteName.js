@@ -16,8 +16,8 @@ export const RouteBlog = '/blogs';
 export const RouteBlogAdd = '/blog/add';
 export const RouteBlogEdit = (blogid)=> {
   if (blogid) {
-    return `/category/edit/${blogid}`;
+    return `/blog/edit/${blogid}`;
   } else {
-    return `/category/edit/:blogid`;
+    return `/blog/edit/:blogid`;
   }
 }
