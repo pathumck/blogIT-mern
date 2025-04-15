@@ -1,6 +1,7 @@
 import CommentCount from "@/components/CommentCount";
 import CommentList from "@/components/CommentList";
 import Comments from "@/components/Comments";
+import LikeCount from "@/components/LikeCount";
 import Loading from "@/components/Loading";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getEnv } from "@/helpers/getEnv";
@@ -41,8 +42,10 @@ function SingleBlogDetails() {
                   </p>
                 </div>
               </div>
-
-              <CommentCount props={{ blogid: data.data._id }} />
+             <div className="flex items-center gap-3">
+             <LikeCount props={{ blogid: data.data._id }} />
+             <CommentCount props={{ blogid: data.data._id }} />
+             </div>
             </div>
 
             <div className="my-5">
