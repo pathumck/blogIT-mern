@@ -21,33 +21,33 @@ import { IoTrashOutline } from "react-icons/io5";
 import { useFetch } from "@/hooks/useFetch";
 import moment from "moment";
 function BlogDetails() {
-   const [refreshData, setRefreshData] = useState(false);
-    const {
-      data: blogData,
-      loading,
-      error,
-    } = useFetch(
-      `${getEnv("VITE_API_BASE_URL")}/blog/get-all`,
-      {
-        method: "GET",
-        credentials: "include",
-      },
-      [refreshData]
+  const [refreshData, setRefreshData] = useState(false);
+  const {
+    data: blogData,
+    loading,
+    error,
+  } = useFetch(
+    `${getEnv("VITE_API_BASE_URL")}/blog/get-all`,
+    {
+      method: "GET",
+      credentials: "include",
+    },
+    [refreshData]
+  );
+
+  const handleDelete = (id) => {
+    const response = deleteData(
+      `${getEnv("VITE_API_BASE_URL")}/blog/delete/${id}`
     );
-  
-    const handleDelete = (id) => {
-      const response = deleteData(
-        `${getEnv("VITE_API_BASE_URL")}/blog/delete/${id}`
-      );
-      if (response) {
-        setRefreshData(!refreshData);
-        showToast("success", "Category deleted successfully");
-      } else {
-        showToast("error", "Something went wrong");
-      }
-    };
-    if (loading) return <Loading />;
-    console.log(blogData);
+    if (response) {
+      setRefreshData(!refreshData);
+      showToast("success", "Category deleted successfully");
+    } else {
+      showToast("error", "Something went wrong");
+    }
+  };
+  if (loading) return <Loading />;
+
   return (
     <div>
       <Card>
@@ -79,7 +79,9 @@ function BlogDetails() {
                     <TableCell>{blog?.category?.name}</TableCell>
                     <TableCell>{blog?.title}</TableCell>
                     <TableCell>{blog?.slug}</TableCell>
-                    <TableCell>{moment(blog?.createdAt).format("DD-MM-YYYY")}</TableCell>
+                    <TableCell>
+                      {moment(blog?.createdAt).format("DD-MM-YYYY")}
+                    </TableCell>
                     <TableCell className="flex gap-2">
                       <Button
                         variant="outline"
