@@ -6,10 +6,11 @@ import avatar from "@/assets/avatar.png";
 import { FaCalendarDays } from "react-icons/fa6";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { RouteBlogDetails } from "@/helpers/RouteName";
 
 function BlogCard({ props }) {
   return (
-    <Link>
+    <Link to={RouteBlogDetails(props.category.slug, props.slug)}>
       <Card className="pt-5">
         <CardContent>
           <div className="flex item-center justify-between">
@@ -37,7 +38,7 @@ function BlogCard({ props }) {
             <p className="flex items-center gap-2 mb-2">
               <FaCalendarDays />
               <span className="text-gray-500 font-semibold">
-                {moment(props.createdAt).format("DD-MM-YY")}
+                {moment(props.createdAt).fromNow()}
               </span>
             </p>
             <h2 className="text-1xl font-bold line-clamp-2">{props.title}</h2>
