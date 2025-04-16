@@ -15,35 +15,35 @@ function CommentList({ props }) {
       method: "GET",
       credentials: "include",
     }
-  ); 
+  );
   if (loading) return <Loading />;
   return (
     <div>
       <h4 className="text-2xl font-bold">
-        {props.newComment ? (
-          <span className="me-2">{data && data.data.length + 1}</span>
-        ) : (
-          <span className="me-2">{data && data.data.length}</span>
-        )}{" "}
+        <span className="me-2">
+          {data && data.data.length + (props.newComments?.length || 0)}
+        </span>{" "}
         Comments
       </h4>
+
       <div className="mt-5">
-        {props.newComment && (
-          <div className="flex gap-2">
-            <Avatar>
-              <AvatarImage src={user?.user?.avatar || avatar} />
-            </Avatar>
-            <div className="border-b">
-              <p className="font-bold">{user?.user?.name}</p>
-              <p className="text-sm text-gray-500">
-                {moment(props.newComment?.createdAt).fromNow()}
-              </p>
-              <div className="pt-3 pb-3 text-gray-600 text-sm font-semibold">
-                {props.newComment?.comment}
+        {props.newComments &&
+          props.newComments.map((comment, index) => (
+            <div key={index} className="flex gap-2">
+              <Avatar>
+                <AvatarImage src={user?.user?.avatar || avatar} />
+              </Avatar>
+              <div className="border-b">
+                <p className="font-bold">{user?.user?.name}</p>
+                <p className="text-sm text-gray-500">
+                  {moment(comment?.createdAt).fromNow()}
+                </p>
+                <div className="pt-3 pb-3 text-gray-600 text-sm font-semibold">
+                  {comment.comment}
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          ))}
 
         {data &&
           data.data.length > 0 &&
@@ -51,10 +51,10 @@ function CommentList({ props }) {
             return (
               <div key={comment._id} className="flex gap-2">
                 <Avatar>
-                  <AvatarImage src={comment?.author.avatar || avatar} />
+                  <AvatarImage src={comment?.user.avatar || avatar} />
                 </Avatar>
                 <div className="border-b">
-                  <p className="font-bold">{comment?.author.name}</p>
+                  <p className="font-bold">{comment?.user.name}</p>
                   <p className="text-sm text-gray-500">
                     {moment(comment.createdAt).fromNow()}
                   </p>

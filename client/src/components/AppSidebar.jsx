@@ -22,21 +22,22 @@ import { useFetch } from "@/hooks/useFetch";
 import { getEnv } from "@/helpers/getEnv";
 
 export const AppSidebar = () => {
-  const {
-    data: categoryData  } = useFetch(`${getEnv("VITE_API_BASE_URL")}/category/all-category`, {
-    method: "GET",
-    credentials: "include",
-  });
+  const { data: categoryData } = useFetch(
+    `${getEnv("VITE_API_BASE_URL")}/category/all-category`,
+    {
+      method: "GET",
+      credentials: "include",
+    }
+  );
   return (
     <>
       <Sidebar>
-        <SidebarHeader className="bg-indigo-200">
+        <SidebarHeader>
           <img src={logo} width={40} alt="logo" />
         </SidebarHeader>
-        <SidebarContent className="bg-indigo-200">
+        <SidebarContent>
           <SidebarGroup>
             <SidebarMenu>
-             
               <SidebarMenuItem>
                 <SidebarMenuButton>
                   <IoHomeOutline />
@@ -65,21 +66,20 @@ export const AppSidebar = () => {
           <SidebarGroup>
             <SidebarGroupLabel>Categories</SidebarGroupLabel>
             <SidebarMenu>
-            {categoryData && categoryData.data.length > 0 && 
+              {categoryData &&
+                categoryData.data.length > 0 &&
                 categoryData.data.map((category) => (
                   <SidebarMenuItem key={category._id}>
-                  <SidebarMenuButton>
-                    <GoDot />
-                    <Link to="">{category.name}</Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))
-              }
-             
+                    <SidebarMenuButton>
+                      <GoDot />
+                      <Link to="">{category.name}</Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
             </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter className="bg-indigo-200" />
+        <SidebarFooter />
       </Sidebar>
     </>
   );

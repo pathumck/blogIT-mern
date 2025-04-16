@@ -3,8 +3,8 @@ import { handleError } from "../helpers/handleError.js";
 
 export const addComment = async (req, res, next) => {
   try {
-    const { author, blogid, comment } = req.body;
-    const newComment = new Comment({ author, blogid, comment });
+    const { user, blogid, comment } = req.body;
+    const newComment = new Comment({ user, blogid, comment });
     await newComment.save();
     res
       .status(201)
@@ -21,7 +21,7 @@ export const addComment = async (req, res, next) => {
 export const getComments  = async (req, res, next) => {
   try {
     const { blogid} = req.params;
-    const comments = await Comment.find({ blogid }).populate("author", "name avatar").sort({ createdAt: -1 }).lean().exec();
+    const comments = await Comment.find({ blogid }).populate("user", "name avatar").sort({ createdAt: -1 }).lean().exec();
     res
       .status(200)
       .json({

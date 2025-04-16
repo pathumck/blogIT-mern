@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { showToast } from "@/helpers/showToast";
@@ -22,7 +22,8 @@ import { Link } from "react-router-dom";
 import { RouteSignIn } from "@/helpers/RouteName";
 import CommentList from "./CommentList";
 function Comments({ props }) {
-  const [newComment, setNewComment] = useState();
+  const [newComments, setNewComments] = useState([]);
+
   const user = useSelector((state) => state.user);
   const formSchema = z.object({
     comment: z.string().min(3, "Comment must be at least 3 characters long"),
@@ -39,7 +40,7 @@ function Comments({ props }) {
       const newValues = {
         ...values,
         blogid: props.blogid,
-        author: user.user._id,
+        user: user.user._id,
       };
       const response = await fetch(
         `${getEnv("VITE_API_BASE_URL")}/comment/add`,
@@ -56,7 +57,7 @@ function Comments({ props }) {
         showToast("error", data.message);
         return;
       }
-      setNewComment(data.comment);
+      setNewComments((prev) => [data.comment, ...prev]);
       form.reset();
       showToast("success", data.message);
     } catch (error) {
@@ -101,7 +102,7 @@ function Comments({ props }) {
       )}
 
       <div className="border-t mt-5 pt-5">
-        <CommentList props={{ blogid: props.blogid, newComment : newComment }} />
+        <CommentList props={{ blogid: props.blogid, newComments }} />
       </div>
     </div>
   );
