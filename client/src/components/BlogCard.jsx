@@ -32,7 +32,7 @@ function BlogCard({ props }) {
           </div>
 
           <div className="rounded my-2">
-            <img src={props.featuredImage} className="rounded" />
+            <img src={props.featuredImage} className="rounded w-full h-40" />
           </div>
           <div>
             <p className="flex items-center gap-2 mb-2">
