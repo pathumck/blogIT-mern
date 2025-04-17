@@ -148,3 +148,25 @@ export const getRelatedBlog = async (req, res, next) => {
     next(handleError(500, error.message));
   }
 };
+
+export const getBlogByCategory = async (req, res, next) => {
+  try {
+    const { category } = req.params;
+    const categoryData = await Category.findOne({ slug: category });
+    if (!categoryData) {
+      next(handleError(404, "Category data not found."));
+    }
+    const categoryId = categoryData._id;
+    const blogs = await Blog.find({
+      category: categoryId,
+    })
+      .populate("author", "name avatar role")
+      .populate("category", "name slug")
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec();
+    res.status(200).json({ success: true, data: blogs });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
