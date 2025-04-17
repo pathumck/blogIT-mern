@@ -3,6 +3,7 @@ import CommentList from "@/components/CommentList";
 import Comments from "@/components/Comments";
 import LikeCount from "@/components/LikeCount";
 import Loading from "@/components/Loading";
+import RelatedBlog from "@/components/RelatedBlog";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getEnv } from "@/helpers/getEnv";
 import { useFetch } from "@/hooks/useFetch";
@@ -12,17 +13,18 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 function SingleBlogDetails() {
-  const { blog } = useParams();
+  const { blog, category } = useParams();
   const { data, loading, error } = useFetch(
     `${getEnv("VITE_API_BASE_URL")}/blog/get-blog/${blog}`,
     {
       method: "GET",
       credentials: "include",
-    }
+    },
+    [blog, category]
   );
   if (loading) return <Loading />;
   return (
-    <div className="flex justify-between gap-20">
+    <div className="flex justify-between gap-10">
       {data && data.data && (
         <>
           <div className="border rounded w-[70%] p-5">
@@ -41,10 +43,10 @@ function SingleBlogDetails() {
                   </p>
                 </div>
               </div>
-             <div className="flex items-center gap-3">
-             <LikeCount props={{ blogid: data.data._id }} />
-             <CommentCount props={{ blogid: data.data._id }} />
-             </div>
+              <div className="flex items-center gap-3">
+                <LikeCount props={{ blogid: data.data._id }} />
+                <CommentCount props={{ blogid: data.data._id }} />
+              </div>
             </div>
 
             <div className="my-5">
@@ -62,7 +64,9 @@ function SingleBlogDetails() {
         </>
       )}
 
-      <div className="border rounded w-[80%]"></div>
+      <div className="h-fit border rounded w-[30%]">
+        <RelatedBlog props={{ category: category, currentBlog: blog }} />
+      </div>
     </div>
   );
 }

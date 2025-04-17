@@ -82,7 +82,7 @@ function AddBlog() {
   async function onSubmit(values) {
     try {
       const newValues = { ...values, author: user._id };
-      console.log(newValues);
+     
       if (!file) {
         showToast("error", "Feature Image is required");
         return;

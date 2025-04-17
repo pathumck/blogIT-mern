@@ -42,7 +42,6 @@ function Profile() {
     { method: "GET", credentials: "include" }
   );
 
-  console.log(userData);
   const formSchema = z.object({
     name: z.string().min(3, "Name must be altest 3 characters long"),
     email: z.string().email(),
@@ -104,8 +103,6 @@ function Profile() {
     setFile(file);
     setPreview(preview);
   };
-  console.log(filePreview);
-  console.log(userData);
   if (loading) return <Loading />;
   return (
     <Card className="max-w-screen-md mx-auto">

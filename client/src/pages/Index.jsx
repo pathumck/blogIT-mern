@@ -17,7 +17,7 @@ function Index() {
     },
   );
   if(loading) return <Loading />
-  console.log(blogData)
+
   return (
     <div className="grid grid-cols-3 gap-10">
       {blogData && blogData.data.length > 0

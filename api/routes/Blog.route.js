@@ -4,6 +4,7 @@ import {
   deleteBlog,
   editBlog,
   getBlog,
+  getRelatedBlog,
   showAllBlog,
   updateBlog,
 } from "../controllers/blog.controller.js";
@@ -13,9 +14,10 @@ const BlogRoute = express.Router();
 
 BlogRoute.post("/add", upload.single("file"), addBlog);
 BlogRoute.get("/edit/:blogid", editBlog);
-BlogRoute.put("/update/:blogid", updateBlog);
+BlogRoute.put("/update/:blogid", upload.single("file"), updateBlog);
 BlogRoute.delete("/delete/:blogid", deleteBlog);
 BlogRoute.get("/get-all", showAllBlog);
-BlogRoute.get("/get-blog/:slug", getBlog)
+BlogRoute.get("/get-blog/:slug", getBlog);
+BlogRoute.get("/get-related-blog/:category/:blog", getRelatedBlog);
 
 export default BlogRoute;

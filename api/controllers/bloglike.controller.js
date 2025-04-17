@@ -17,7 +17,6 @@ export const doLike = async (req, res, next) => {
 
     res.status(200).json({ likecount });
   } catch (error) {
-    console.log(error);
     next(handleError(500, error.message));
   }
 };
@@ -40,7 +39,6 @@ export const likeCount = async (req, res, next) => {
       isUserliked,
     });
   } catch (error) {
-    console.log(error);
     next(handleError(500, error.message));
   }
 };

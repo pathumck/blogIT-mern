@@ -31,11 +31,11 @@ import { FaPlus } from "react-icons/fa";
 import Editor from "@/components/Editor";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {decode} from 'entities';
+import { decode } from "entities";
 import Loading from "@/components/Loading";
 
 function EditBlog() {
-  const {blogid} = useParams();
+  const { blogid } = useParams();
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const {
@@ -47,9 +47,11 @@ function EditBlog() {
     credentials: "include",
   });
 
-  const {data: blogData, loading: blogLoading} = useFetch(`${getEnv("VITE_API_BASE_URL")}/blog/edit/${blogid}`, { method: "GET", credentials: "include" }, [blogid]);
-
-  console.log(blogData);
+  const { data: blogData, loading: blogLoading } = useFetch(
+    `${getEnv("VITE_API_BASE_URL")}/blog/edit/${blogid}`,
+    { method: "GET", credentials: "include" },
+    [blogid]
+  );
 
   const [filePreview, setPreview] = useState();
   const [file, setFile] = useState(null);
@@ -99,7 +101,7 @@ function EditBlog() {
   async function onSubmit(values) {
     try {
       const newValues = { ...values, author: user._id };
-      console.log(newValues);
+
       if (!file) {
         showToast("error", "Feature Image is required");
         return;
@@ -107,11 +109,14 @@ function EditBlog() {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("data", JSON.stringify(newValues));
-      const response = await fetch(`${getEnv("VITE_API_BASE_URL")}/blog/add`, {
-        method: "POST",
-        credentials: "include",
-        body: formData,
-      });
+      const response = await fetch(
+        `${getEnv("VITE_API_BASE_URL")}/blog/update/${blogid}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          body: formData,
+        }
+      );
       const data = await response.json();
       if (!response.ok) {
         showToast("error", data.message);
@@ -135,7 +140,7 @@ function EditBlog() {
     setPreview(preview);
   };
 
-  if (blogLoading) return <Loading />
+  if (blogLoading) return <Loading />;
   return (
     <div>
       <Card className="pt-5 max-w-screen mx-auto">
@@ -250,7 +255,6 @@ function EditBlog() {
                   name="blogContent"
                   render={({ field }) => (
                     <FormItem>
-                      {console.log(field.value)}
                       <FormLabel className="text-gray-600 font-semibold">
                         Blog Content
                       </FormLabel>
