@@ -21,7 +21,6 @@ function SingleBlogDetails() {
     }
   );
   if (loading) return <Loading />;
-  console.log(data.data.author.name);
   return (
     <div className="flex justify-between gap-20">
       {data && data.data && (
