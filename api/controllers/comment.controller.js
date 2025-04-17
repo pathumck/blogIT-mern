@@ -6,45 +6,69 @@ export const addComment = async (req, res, next) => {
     const { user, blogid, comment } = req.body;
     const newComment = new Comment({ user, blogid, comment });
     await newComment.save();
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Comment added successfully.",
-        comment: newComment,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Comment added successfully.",
+      comment: newComment,
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }
 };
 
-export const getComments  = async (req, res, next) => {
+export const getComments = async (req, res, next) => {
   try {
-    const { blogid} = req.params;
-    const comments = await Comment.find({ blogid }).populate("user", "name avatar").sort({ createdAt: -1 }).lean().exec();
-    res
-      .status(200)
-      .json({
-        success: true,
-        data: comments,
-      });
+    const { blogid } = req.params;
+    const comments = await Comment.find({ blogid })
+      .populate("user", "name avatar")
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec();
+    res.status(200).json({
+      success: true,
+      data: comments,
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }
 };
 
-export const commentCount  = async (req, res, next) => {
+export const commentCount = async (req, res, next) => {
   try {
-    const { blogid} = req.params;
+    const { blogid } = req.params;
     const commentCount = await Comment.countDocuments({ blogid });
-    res
-      .status(200)
-      .json({
-        success: true,
-        data: commentCount,
-      });
+    res.status(200).json({
+      success: true,
+      data: commentCount,
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }
 };
 
+export const getAllComments = async (req, res, next) => {
+  try {
+    const comments = await Comment.find()
+      .populate("blogid", "title")
+      .populate("user", "name");
+    res.status(200).json({
+      success: true,
+      data: comments,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+export const deleteComment = async (req, res, next) => {
+  try {
+    const { commentid } = req.params;
+    await Comment.findByIdAndDelete({ _id: commentid });
+    res.status(200).json({
+      success: true,
+      message: "Comment deleted successfully.",
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};

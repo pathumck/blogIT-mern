@@ -9,6 +9,7 @@ import {
   RouteBlogDetails,
   RouteBlogEdit,
   RouteCategoryDetails,
+  RouteCommentDetails,
   RouteEditCategory,
   RouteIndex,
   RouteProfile,
@@ -29,6 +30,7 @@ import EditBlog from "./pages/Blog/EditBlog";
 import SingleBlogDetails from "./pages/SingleBlogDetails";
 import BlogByCategory from "./pages/Blog/BlogByCategory";
 import SearchResults from "./components/SearchResults";
+import Comments from "./pages/Comments";
 
 function App() {
   return (
@@ -49,6 +51,7 @@ function App() {
             <Route path={RouteBlogDetails()} element={<SingleBlogDetails />} />
             <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
             <Route path={RouteSearch()} element={<SearchResults />} />
+            <Route path={RouteCommentDetails} element={<Comments />} />
           </Route>
 
           <Route path={RouteSignIn} element={<SignIn />} />
