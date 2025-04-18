@@ -38,9 +38,9 @@ function Comments() {
     );
     if (response) {
       setRefreshData(!refreshData);
-      showToast("success", "Category deleted successfully");
+      showToast("success", "Comment deleted successfully");
     } else {
-      showToast("error", "Something went wrong");
+      showToast("error", "Comment deletion failed");
     }
   };
   console.log(data);

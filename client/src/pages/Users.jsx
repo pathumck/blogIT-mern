@@ -41,7 +41,7 @@ function Users() {
       setRefreshData(!refreshData);
       showToast("success", "User deleted successfully");
     } else {
-      showToast("error", "Something went wrong");
+      showToast("error", "User deletion failed");
     }
   };
   console.log(data);
