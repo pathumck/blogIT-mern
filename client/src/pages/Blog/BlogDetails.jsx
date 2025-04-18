@@ -77,8 +77,8 @@ function BlogDetails() {
                   <TableRow key={blog._id}>
                     <TableCell>{blog?.author?.name}</TableCell>
                     <TableCell>{blog?.category?.name}</TableCell>
-                    <TableCell className="truncate max-w-[200px]">{blog?.title}</TableCell>
-                    <TableCell className="truncate max-w-[200px]">{blog?.slug}</TableCell>
+                    <TableCell className="break-words whitespace-normal">{blog?.title}</TableCell>
+                    <TableCell className="break-words whitespace-normal">{blog?.slug}</TableCell>
                     <TableCell>
                       {moment(blog?.createdAt).format("DD-MM-YYYY")}
                     </TableCell>

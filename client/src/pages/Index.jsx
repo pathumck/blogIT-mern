@@ -10,7 +10,7 @@ function Index() {
     loading,
     error,
   } = useFetch(
-    `${getEnv("VITE_API_BASE_URL")}/blog/get-all`,
+    `${getEnv("VITE_API_BASE_URL")}/blog/blog`,
     {
       method: "GET",
       credentials: "include",

@@ -21,7 +21,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { showToast } from "@/helpers/showToast";
 import { removeUser } from "@/redux/user.slice";
 import { getEnv } from "@/helpers/getEnv";
-import { RouteIndex, RouteProfile } from "@/helpers/RouteName";
+import { RouteBlogAdd, RouteIndex, RouteProfile } from "@/helpers/RouteName";
 
 function Topbar() {
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ function Topbar() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild className={"cursor-pointer"}>
-                <Link to="/create-post">
+                <Link to={RouteBlogAdd}>
                   <FaPlus />
                   Create Blog
                 </Link>

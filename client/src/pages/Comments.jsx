@@ -66,9 +66,9 @@ function Comments() {
                 data.data.map((comment) => (
                   <TableRow key={comment._id}>
                     <TableCell>{moment(comment.createdAt).fromNow()}</TableCell>
-                    <TableCell className="truncate max-w-[200px]">{comment.blogid?.title}</TableCell>
-                    <TableCell className="truncate max-w-[200px]">{comment.user?.name}</TableCell>
-                    <TableCell className="truncate max-w-[200px]">{comment?.comment}</TableCell>
+                    <TableCell className="break-words whitespace-normal">{comment.blogid?.title}</TableCell>
+                    <TableCell className="break-words whitespace-normal">{comment.user?.name}</TableCell>
+                    <TableCell className="break-words whitespace-normal">{comment?.comment}</TableCell>
                     <TableCell className="flex gap-2">   
                       <Button
                         onClick={() => handleDelete(comment._id)}
