@@ -16,6 +16,7 @@ import {
   RouteSearch,
   RouteSignIn,
   RouteSignUp,
+  RouteUser,
 } from "./helpers/RouteName";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -31,6 +32,7 @@ import SingleBlogDetails from "./pages/SingleBlogDetails";
 import BlogByCategory from "./pages/Blog/BlogByCategory";
 import SearchResults from "./components/SearchResults";
 import Comments from "./pages/Comments";
+import Users from "./pages/Users";
 
 function App() {
   return (
@@ -52,6 +54,7 @@ function App() {
             <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
             <Route path={RouteSearch()} element={<SearchResults />} />
             <Route path={RouteCommentDetails} element={<Comments />} />
+            <Route path={RouteUser} element={<Users />} />
           </Route>
 
           <Route path={RouteSignIn} element={<SignIn />} />
