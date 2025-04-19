@@ -46,9 +46,7 @@ function Profile() {
     name: z.string().min(3, "Name must be altest 3 characters long"),
     email: z.string().email(),
     bio: z.string().min(3, "Bio must be altest 3 characters long"),
-    password: z
-      .string()
-      .min(8, "Password must be at least 8 characters long"),
+    password: z.string().min(8, "Password must be at least 8 characters long"),
   });
 
   const form = useForm({
@@ -116,14 +114,15 @@ function Profile() {
                 <input {...getInputProps()} />
                 <Avatar className="w-24 h-24 relative group">
                   <AvatarImage
-                   src={
-                    filePreview
-                      ? filePreview
-                      : userData.user.avatar
-                      ? userData.user.avatar
-                      : avatar
-                  }
-                  
+                    src={
+                      filePreview
+                        ? filePreview
+                        : userData.user.avatar
+                        ? userData.user.avatar
+                        : avatar
+                    }
+                    referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
                   />
                   <div className="absolute z-50 w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center bg-black opacity-40 border-2 border-orange-500 rounded-full group-hover:flex hidden cursor-pointer">
                     <FaCamera className="text-orange-500" />

@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { RouteBlogDetails } from "@/helpers/RouteName";
 
 function BlogCard({ props }) {
+  console.log(props.author.avatar);
   return (
     <Link to={RouteBlogDetails(props.category.slug, props.slug)}>
       <Card className="pt-5">
@@ -16,7 +17,11 @@ function BlogCard({ props }) {
           <div className="flex item-center justify-between">
             <div className="flex justify-between items-center gap-2">
               <Avatar>
-                <AvatarImage src={props.author.avatar || avatar} />
+                <AvatarImage
+                  src={props.author.avatar || avatar}
+                  referrerPolicy="no-referrer"
+                  crossOrigin="anonymous"
+                />
               </Avatar>
               <span className="text-gray-600 font-bold">
                 {props.author.name}

@@ -70,7 +70,8 @@ function Topbar() {
               <Avatar>
                 <AvatarImage
                   src={user.user.avatar || profileImage}
-                  
+                  referrerPolicy="no-referrer"
+                  crossOrigin="anonymous"
                 />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
