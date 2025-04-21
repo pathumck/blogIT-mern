@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { RouteBlogDetails } from "@/helpers/RouteName";
 
 function BlogCard({ props }) {
-  console.log(props.author.avatar);
   return (
     <Link to={RouteBlogDetails(props.category.slug, props.slug)}>
       <Card className="pt-5">
@@ -23,7 +22,7 @@ function BlogCard({ props }) {
                   crossOrigin="anonymous"
                 />
               </Avatar>
-              <span className="text-gray-600 font-bold">
+              <span className="text-gray-600 font-bold line-clamp-1">
                 {props.author.name}
               </span>
             </div>
@@ -36,8 +35,11 @@ function BlogCard({ props }) {
             )}
           </div>
 
-          <div className="rounded my-2">
-            <img src={props.featuredImage} className="rounded w-full h-40" />
+          <div className="rounded my-2 aspect-[4/3]">
+            <img
+              src={props.featuredImage}
+              className="rounded w-full h-full object-cover"
+            />
           </div>
           <div>
             <p className="flex items-center gap-2 mb-2">

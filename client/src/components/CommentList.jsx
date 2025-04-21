@@ -31,7 +31,11 @@ function CommentList({ props }) {
           props.newComments.map((comment, index) => (
             <div key={index} className="flex gap-2">
               <Avatar>
-                <AvatarImage src={user?.user?.avatar || avatar} />
+                <AvatarImage
+                  src={user?.user?.avatar || avatar}
+                  referrerPolicy="no-referrer"
+                  crossOrigin="anonymous"
+                />
               </Avatar>
               <div className="border-b">
                 <p className="font-bold">{user?.user?.name}</p>
@@ -51,7 +55,11 @@ function CommentList({ props }) {
             return (
               <div key={comment._id} className="flex gap-2">
                 <Avatar>
-                  <AvatarImage src={comment?.user.avatar || avatar} />
+                  <AvatarImage
+                    src={comment?.user.avatar || avatar}
+                    referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
+                  />
                 </Avatar>
                 <div className="border-b">
                   <p className="font-bold">{comment?.user.name}</p>

@@ -31,7 +31,7 @@ function BlogByCategory() {
           </h1>
         )}
       </div>
-      <div className="grid grid-cols-3 gap-10">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
         {blogData && blogData.data.length > 0 ? (
           blogData.data.map((blog) => <BlogCard key={blog._id} props={blog} />)
         ) : (

@@ -59,7 +59,7 @@ const LikeCount = ({ props }) => {
     <button
       onClick={handleLike}
       type="button"
-      className="flex justify-between items-center gap-1"
+      className="flex justify-between items-center gap-1 cursor-pointer"
     >
       {hasLiked ? <FaHeart fill="red" /> : <FaRegHeart />}
       {likeCount}

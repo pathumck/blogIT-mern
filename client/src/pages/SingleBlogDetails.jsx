@@ -24,15 +24,19 @@ function SingleBlogDetails() {
   );
   if (loading) return <Loading />;
   return (
-    <div className="flex justify-between gap-10">
+    <div className="md:flex-nowrap flex-wrap flex justify-between gap-10">
       {data && data.data && (
         <>
-          <div className="border rounded w-[70%] p-5">
+          <div className="border rounded md:w-[70%] w-full p-5">
             <h1 className="text-2xl font-bold mb-5">{data.data.title}</h1>
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <Avatar>
-                  <AvatarImage src={data.data.author.avatar} />
+                  <AvatarImage
+                    src={data.data.author.avatar}
+                    referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
+                  />
                 </Avatar>
                 <div>
                   <p className="font-bold text-gray-600">
@@ -64,7 +68,7 @@ function SingleBlogDetails() {
         </>
       )}
 
-      <div className="h-fit border rounded w-[30%]">
+      <div className="h-fit border rounded md:w-[40%] w-full">
         <RelatedBlog props={{ category: category, currentBlog: blog }} />
       </div>
     </div>
