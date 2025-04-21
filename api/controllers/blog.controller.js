@@ -202,13 +202,20 @@ export const search = async (req, res, next) => {
 
 export const getAllBlogs = async (req, res, next) => {
   try {
-    const blog = await Blog.find()
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
+
+    const blogs = await Blog.find()
       .populate("author", "name avatar role")
       .populate("category", "name slug")
       .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
       .lean()
       .exec();
-    res.status(200).json({ success: true, data: blog });
+
+    res.status(200).json({ success: true, data: blogs });
   } catch (error) {
     next(handleError(500, error.message));
   }
