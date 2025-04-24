@@ -74,7 +74,13 @@ function Users() {
                       {user.email}
                     </TableCell>
                     <TableCell className="truncate max-w-[200px]">
-                      <img src={user.avatar || avatar} className="w-10 " alt="" />
+                      <img
+                        src={user.avatar || avatar}
+                        className="w-10 rounded-full"
+                        alt=""
+                        referrerPolicy="no-referrer"
+                        crossOrigin="anonymous"
+                      />
                     </TableCell>
                     <TableCell className="truncate max-w-[200px]">
                       {moment(user.createdAt).format("DD-MM-YYYY")}
