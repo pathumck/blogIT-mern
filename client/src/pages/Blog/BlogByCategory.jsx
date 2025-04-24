@@ -70,7 +70,7 @@ function BlogByCategory() {
           <div className="flex justify-center items-center">
             {
               <img
-                className={loading ? "w-10 block" : "hidden"}
+                className={loading && page > 1 ? "w-10 block" : "hidden"}
                 src={spinner}
                 alt=""
               />
@@ -84,9 +84,13 @@ function BlogByCategory() {
         }
       >
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-          {blogs.length > 0
-            ? blogs.map((blog) => <BlogCard key={blog._id} props={blog} />)
-            : !loading && <div>Data not found</div>}
+          {loading && blogs.length === 0 ? (
+            <Loading />
+          ) : blogs.length > 0 ? (
+            blogs.map((blog) => <BlogCard key={blog._id} props={blog} />)
+          ) : (
+            <div>Data not found</div>
+          )}
         </div>
       </InfiniteScroll>
     </>

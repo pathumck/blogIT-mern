@@ -19,9 +19,14 @@ export const addComment = async (req, res, next) => {
 export const getComments = async (req, res, next) => {
   try {
     const { blogid } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
     const comments = await Comment.find({ blogid })
       .populate("user", "name avatar")
       .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
       .lean()
       .exec();
     res.status(200).json({
