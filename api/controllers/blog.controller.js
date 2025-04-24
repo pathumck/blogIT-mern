@@ -163,6 +163,10 @@ export const getRelatedBlog = async (req, res, next) => {
 export const getBlogByCategory = async (req, res, next) => {
   try {
     const { category } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
+
     const categoryData = await Category.findOne({ slug: category });
     if (!categoryData) {
       next(handleError(404, "Category data not found."));
@@ -174,6 +178,8 @@ export const getBlogByCategory = async (req, res, next) => {
       .populate("author", "name avatar role")
       .populate("category", "name slug")
       .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
       .lean()
       .exec();
     res.status(200).json({ success: true, data: blogs });
