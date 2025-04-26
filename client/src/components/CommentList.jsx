@@ -47,6 +47,7 @@ function CommentList({ props }) {
         setHasMore(false);
       } else {
         setComments((prev) => [...prev, ...data.data]);
+        setIsCommented(false);
       }
     }
   }, [data]);
@@ -54,7 +55,9 @@ function CommentList({ props }) {
   useEffect(() => {
     if (props.isCommented) {
       setPage(1);
+      console.log(comments, "comments hook");
       setComments([]);
+      console.log(comments, "comments hook after");
       setHasMore(true);
       setIsCommented((prev) => !prev);
     }
@@ -89,7 +92,8 @@ function CommentList({ props }) {
             </div>
           }
           endMessage={
-            commentCount && commentCount.data > 0 && (
+            commentCount &&
+            commentCount.data > 0 && (
               <p className="text-center pt-5 text-orange-600 font-bold">
                 You have seen it all...
               </p>
@@ -98,28 +102,6 @@ function CommentList({ props }) {
           scrollableTarget="comments"
         >
           <div className="mt-5">
-            {/* {props.newComments &&
-              props.newComments.map((comment, index) => (
-                <div key={index} className="flex gap-2">
-                  <Avatar>
-                    <AvatarImage
-                      src={user?.user?.avatar || avatar}
-                      referrerPolicy="no-referrer"
-                      crossOrigin="anonymous"
-                    />
-                  </Avatar>
-                  <div className="border-b">
-                    <p className="font-bold">{user?.user?.name}</p>
-                    <p className="text-sm text-gray-500">
-                      {moment(comment?.createdAt).fromNow()}
-                    </p>
-                    <div className="pt-3 pb-3 text-gray-600 text-sm font-semibold">
-                      {comment.comment}
-                    </div>
-                  </div>
-                </div>
-              ))} */}
-
             {data &&
               comments.length > 0 &&
               comments.map((comment) => {
