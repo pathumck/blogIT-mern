@@ -47,7 +47,6 @@ function CommentList({ props }) {
         setHasMore(false);
       } else {
         setComments((prev) => [...prev, ...data.data]);
-        setIsCommented(false);
       }
     }
   }, [data]);
@@ -55,9 +54,7 @@ function CommentList({ props }) {
   useEffect(() => {
     if (props.isCommented) {
       setPage(1);
-      console.log(comments, "comments hook");
       setComments([]);
-      console.log(comments, "comments hook after");
       setHasMore(true);
       setIsCommented((prev) => !prev);
     }
