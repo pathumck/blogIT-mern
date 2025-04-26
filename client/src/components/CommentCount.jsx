@@ -9,7 +9,8 @@ function CommentCount({ props }) {
     {
       method: "GET",
       credentials: "include",
-    }
+    },
+    [props.isCommented]
   );
 
   return (

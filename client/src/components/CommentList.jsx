@@ -1,7 +1,6 @@
 import { getEnv } from "@/helpers/getEnv";
 import { useFetch } from "@/hooks/useFetch";
 import React, { useEffect, useState } from "react";
-import Loading from "./Loading";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import avatar from "../assets/avatar.png";
 import moment from "moment/moment";
@@ -13,6 +12,7 @@ function CommentList({ props }) {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [comments, setComments] = useState([]);
+  const [isCommented, setIsCommented] = useState(false);
   const { data, loading, error } = useFetch(
     `${getEnv("VITE_API_BASE_URL")}/comment/get/${
       props.blogid
@@ -21,7 +21,20 @@ function CommentList({ props }) {
       method: "GET",
       credentials: "include",
     },
-    [page]
+    [page, isCommented]
+  );
+
+  const {
+    data: commentCount,
+    loading: commentCountLoading,
+    error: commentCountError,
+  } = useFetch(
+    `${getEnv("VITE_API_BASE_URL")}/comment/get-count/${props.blogid}`,
+    {
+      method: "GET",
+      credentials: "include",
+    },
+    [props.isCommented]
   );
 
   const fetchMore = () => {
@@ -38,12 +51,24 @@ function CommentList({ props }) {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (props.isCommented) {
+      setPage(1);
+      setComments([]);
+      setHasMore(true);
+      setIsCommented((prev) => !prev);
+    }
+  }, [props.isCommented]);
+
+  console.log(props.isCommented, "isCommented");
+  console.log(page, "page");
+  console.log(hasMore, "hasMore");
+  console.log(comments, "comments");
+
   return (
     <div>
       <h4 className="text-2xl font-bold">
-        <span className="me-2">
-          {comments && comments.length + (props.newComments?.length || 0)}
-        </span>{" "}
+        <span className="me-2">{(commentCount && commentCount.data) || 0}</span>{" "}
         Comments
       </h4>
 
@@ -56,7 +81,7 @@ function CommentList({ props }) {
             <div className="flex justify-center items-center">
               {
                 <img
-                  className={loading && page > 1 ? "w-10 block" : "hidden"}
+                  className={loading ? "w-10 block" : "hidden"}
                   src={spinner}
                   alt=""
                 />
@@ -64,14 +89,16 @@ function CommentList({ props }) {
             </div>
           }
           endMessage={
-            <p className="text-center pt-5 text-orange-600 font-bold">
-              You have seen it all...
-            </p>
+            commentCount && commentCount.data > 0 && (
+              <p className="text-center pt-5 text-orange-600 font-bold">
+                You have seen it all...
+              </p>
+            )
           }
           scrollableTarget="comments"
         >
           <div className="mt-5">
-            {props.newComments &&
+            {/* {props.newComments &&
               props.newComments.map((comment, index) => (
                 <div key={index} className="flex gap-2">
                   <Avatar>
@@ -91,7 +118,7 @@ function CommentList({ props }) {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
 
             {data &&
               comments.length > 0 &&

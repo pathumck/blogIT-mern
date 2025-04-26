@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { TfiComments } from "react-icons/tfi";
 import {
   Form,
@@ -9,7 +8,6 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,8 +20,6 @@ import { Link } from "react-router-dom";
 import { RouteSignIn } from "@/helpers/RouteName";
 import CommentList from "./CommentList";
 function Comments({ props }) {
-  const [newComments, setNewComments] = useState([]);
-
   const user = useSelector((state) => state.user);
   const formSchema = z.object({
     comment: z.string().min(3, "Comment must be at least 3 characters long"),
@@ -36,6 +32,7 @@ function Comments({ props }) {
     },
   });
   async function onSubmit(values) {
+    props.isCommented(false);
     try {
       const newValues = {
         ...values,
@@ -58,7 +55,7 @@ function Comments({ props }) {
         showToast("error", data.message);
         return;
       }
-      setNewComments((prev) => [data.comment, ...prev]);
+      props.isCommented(true);
       form.reset();
       showToast("success", data.message);
     } catch (error) {
@@ -103,7 +100,7 @@ function Comments({ props }) {
       )}
 
       <div className="border-t mt-5 pt-5">
-        <CommentList props={{ blogid: props.blogid, newComments }} />
+        <CommentList props={{ blogid: props.blogid, isCommented: props.isCommentedConst }} />
       </div>
     </div>
   );

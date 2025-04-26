@@ -1,5 +1,4 @@
 import CommentCount from "@/components/CommentCount";
-import CommentList from "@/components/CommentList";
 import Comments from "@/components/Comments";
 import LikeCount from "@/components/LikeCount";
 import Loading from "@/components/Loading";
@@ -9,11 +8,12 @@ import { getEnv } from "@/helpers/getEnv";
 import { useFetch } from "@/hooks/useFetch";
 import { decodeHTML } from "entities";
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 function SingleBlogDetails() {
   const { blog, category } = useParams();
+  const [isCommented, setIsCommented] = useState(false);
   const { data, loading, error } = useFetch(
     `${getEnv("VITE_API_BASE_URL")}/blog/get-blog/${blog}`,
     {
@@ -49,7 +49,7 @@ function SingleBlogDetails() {
               </div>
               <div className="flex items-center gap-3">
                 <LikeCount props={{ blogid: data.data._id }} />
-                <CommentCount props={{ blogid: data.data._id }} />
+                <CommentCount props={{ blogid: data.data._id, isCommented }} />
               </div>
             </div>
 
@@ -62,7 +62,7 @@ function SingleBlogDetails() {
               }}
             ></div>
             <div className="border-t mt-5 pt-5">
-              <Comments props={{ blogid: data.data._id }} />
+              <Comments props={{ blogid: data.data._id, isCommented : setIsCommented, isCommentedConst: isCommented }} />
             </div>
           </div>
         </>
