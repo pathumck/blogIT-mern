@@ -50,7 +50,6 @@ function Comments() {
       <Card>
         <CardContent>
           <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead>Date</TableHead>
@@ -86,7 +85,7 @@ function Comments() {
                     colSpan={3}
                     className="text-center text-red-500 font-bold"
                   >
-                    No Category Found
+                    No Comment Found
                   </TableCell>
                 </TableRow>
               )}

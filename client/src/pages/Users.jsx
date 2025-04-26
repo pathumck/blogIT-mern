@@ -51,7 +51,6 @@ function Users() {
       <Card>
         <CardContent>
           <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead>Role</TableHead>
@@ -102,7 +101,7 @@ function Users() {
                     colSpan={3}
                     className="text-center text-red-500 font-bold"
                   >
-                    No Category Found
+                    No User Found
                   </TableCell>
                 </TableRow>
               )}
