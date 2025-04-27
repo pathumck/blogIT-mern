@@ -68,7 +68,10 @@ function AddCategory() {
   }
   return (
     <div>
-      <Card className="pt-5 max-w-screen-md mx-auto">
+      <div className="flex items-center gap-3 pl-2 mb-2   text-orange-600">
+        <h1 className="text-2xl font-bold mt-1">Add Category</h1>
+      </div>
+      <Card className="pt-5 max-w-screen mx-auto">
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>

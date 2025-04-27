@@ -19,7 +19,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import { showToast } from "@/helpers/showToast";
 import { deleteData } from "@/helpers/handleDelete";
-
+import { BiCategory } from "react-icons/bi";
 function CategoryDetails() {
   const [refreshData, setRefreshData] = useState(false);
   const {
@@ -49,6 +49,10 @@ function CategoryDetails() {
   if (loading) return <Loading />;
   return (
     <div>
+      <div className="flex items-center gap-3 pl-2 mb-2   text-orange-600">
+        <BiCategory size={26} />
+        <h1 className="text-2xl font-bold mt-1">Categories</h1>
+      </div>
       <Card>
         <CardHeader>
           <div>
@@ -61,9 +65,13 @@ function CategoryDetails() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Category</TableHead>
-                <TableHead>Slug</TableHead>
-                <TableHead>Action</TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Category
+                </TableHead>
+                <TableHead className="text-black-600 font-bold">Slug</TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Action
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
