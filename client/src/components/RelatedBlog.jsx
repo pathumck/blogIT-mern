@@ -26,7 +26,7 @@ function RelatedBlog({ props }) {
               key={blog._id}
               to={RouteBlogDetails(props.category, blog.slug)}
             >
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-2 mb-3 hover:bg-gray-100 transition ">
                 <img
                   src={blog.featuredImage}
                   alt=""
