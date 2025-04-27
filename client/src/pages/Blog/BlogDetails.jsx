@@ -20,7 +20,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import { useFetch } from "@/hooks/useFetch";
 import moment from "moment";
-import logo from "../../assets/blogger.png";
+import { FaBlogger } from "react-icons/fa";
 function BlogDetails() {
   const [refreshData, setRefreshData] = useState(false);
   const {
@@ -52,7 +52,7 @@ function BlogDetails() {
   return (
     <div>
       <div className="flex items-center gap-3 pl-2 mb-2   text-orange-600">
-        <img src={logo} alt="" className="w-7 h-7" />
+        <FaBlogger size={26} />
         <h1 className="text-2xl font-bold mt-1">Blogs</h1>
       </div>
       <Card>
@@ -67,12 +67,22 @@ function BlogDetails() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="text-black-600 font-bold">Author</TableHead>
-                <TableHead className="text-black-600 font-bold">Category Name</TableHead>
-                <TableHead className="text-black-600 font-bold">Title</TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Author
+                </TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Category Name
+                </TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Title
+                </TableHead>
                 <TableHead className="text-black-600 font-bold">Slug</TableHead>
-                <TableHead className="text-black-600 font-bold">Dated</TableHead>
-                <TableHead className="text-black-600 font-bold">Action</TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Dated
+                </TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Action
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -81,8 +91,12 @@ function BlogDetails() {
                   <TableRow key={blog._id}>
                     <TableCell>{blog?.author?.name}</TableCell>
                     <TableCell>{blog?.category?.name}</TableCell>
-                    <TableCell className="break-words whitespace-normal">{blog?.title}</TableCell>
-                    <TableCell className="break-words whitespace-normal">{blog?.slug}</TableCell>
+                    <TableCell className="break-words whitespace-normal">
+                      {blog?.title}
+                    </TableCell>
+                    <TableCell className="break-words whitespace-normal">
+                      {blog?.slug}
+                    </TableCell>
                     <TableCell>
                       {moment(blog?.createdAt).format("DD-MM-YYYY")}
                     </TableCell>

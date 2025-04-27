@@ -16,11 +16,11 @@ import {
 import { useFetch } from "@/hooks/useFetch";
 import { getEnv } from "@/helpers/getEnv";
 import Loading from "@/components/Loading";
-import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import { showToast } from "@/helpers/showToast";
 import { deleteData } from "@/helpers/handleDelete";
 import moment from "moment";
+import { FiUsers } from "react-icons/fi";
 
 function Users() {
   const [refreshData, setRefreshData] = useState(false);
@@ -48,17 +48,29 @@ function Users() {
   if (loading) return <Loading />;
   return (
     <div>
+      <div className="flex items-center gap-3 pl-2 mb-2   text-orange-600">
+        <FiUsers size={26} />
+        <h1 className="text-2xl font-bold mt-1">Categories</h1>
+      </div>
       <Card>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Role</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Avatar</TableHead>
-                <TableHead>Dated</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead className="text-black-600 font-bold">Role</TableHead>
+                <TableHead className="text-black-600 font-bold">Name</TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Email
+                </TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Avatar
+                </TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Dated
+                </TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Actions
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

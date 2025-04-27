@@ -20,6 +20,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import { showToast } from "@/helpers/showToast";
 import { deleteData } from "@/helpers/handleDelete";
 import { BiCategory } from "react-icons/bi";
+
 function CategoryDetails() {
   const [refreshData, setRefreshData] = useState(false);
   const {
