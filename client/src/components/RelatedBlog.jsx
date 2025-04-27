@@ -4,6 +4,8 @@ import React from "react";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import { RouteBlogDetails } from "@/helpers/RouteName";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import profileImage from "../assets/avatar.png";
 
 function RelatedBlog({ props }) {
   const { data, loading, error } = useFetch(
@@ -15,6 +17,7 @@ function RelatedBlog({ props }) {
       credentials: "include",
     }
   );
+  console.log(data);
   if (loading) return <Loading />;
   return (
     <div className="mx-5">
@@ -26,15 +29,30 @@ function RelatedBlog({ props }) {
               key={blog._id}
               to={RouteBlogDetails(props.category, blog.slug)}
             >
-              <div className="flex items-center gap-2 mb-3 hover:bg-gray-100 transition ">
+              <div className="flex items-start gap-2 mb-3 hover:bg-gray-100 transition border rounded p-2">
                 <img
                   src={blog.featuredImage}
                   alt=""
                   className="w-[100px] h-[70px] object-cover rounded-md"
                 />
-                <h4 className="line-clamp-2 text-md font-semibold">
-                  {blog.title}
-                </h4>
+                <div>
+                  <h4 className="line-clamp-2 text-md font-semibold">
+                    {blog.title}
+                  </h4>
+                  <div className="flex items-center gap-1">
+                    <Avatar className="cursor-pointer w-4 h-4">
+                      <AvatarImage
+                        src={blog.author.avatar || profileImage}
+                        referrerPolicy="no-referrer"
+                        crossOrigin="anonymous"
+                      />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <h4 className="text-xs text-gray-600 font-semibold">
+                      {blog.author.name}
+                    </h4>
+                  </div>
+                </div>
               </div>
             </Link>
           ))

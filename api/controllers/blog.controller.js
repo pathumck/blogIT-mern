@@ -151,6 +151,7 @@ export const getRelatedBlog = async (req, res, next) => {
       category: categoryId,
       slug: { $ne: blog },
     })
+      .populate("author", "name avatar")
       .lean()
       .exec();
     console.log(blog);
