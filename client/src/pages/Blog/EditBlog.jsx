@@ -143,6 +143,9 @@ function EditBlog() {
   if (blogLoading) return <Loading />;
   return (
     <div>
+      <div className="flex items-center gap-3 pl-2 mb-2   text-orange-600">
+        <h1 className="text-2xl font-bold mt-1">Edit Blog</h1>
+      </div>
       <Card className="pt-5 max-w-screen mx-auto">
         <CardContent>
           <Form {...form}>

@@ -82,7 +82,7 @@ function AddBlog() {
   async function onSubmit(values) {
     try {
       const newValues = { ...values, author: user._id };
-     
+
       if (!file) {
         showToast("error", "Feature Image is required");
         return;
@@ -119,6 +119,9 @@ function AddBlog() {
   };
   return (
     <div>
+      <div className="flex items-center gap-3 pl-2 mb-2   text-orange-600">
+        <h1 className="text-2xl font-bold mt-1">Add Blog</h1>
+      </div>
       <Card className="pt-5 max-w-screen mx-auto">
         <CardContent>
           <Form {...form}>
