@@ -97,7 +97,7 @@ function Topbar() {
         ) : (
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Avatar>
+              <Avatar className="cursor-pointer">
                 <AvatarImage
                   src={user.user.avatar || profileImage}
                   referrerPolicy="no-referrer"
