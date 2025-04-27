@@ -28,7 +28,7 @@ function BlogCard({ props }) {
             </div>
             {props.author?.role === "admin" && (
               <div>
-                <Badge variant="outline" className="bg-orange-500">
+                <Badge variant="outline" className="bg-orange-500 text-white">
                   Admin
                 </Badge>
               </div>

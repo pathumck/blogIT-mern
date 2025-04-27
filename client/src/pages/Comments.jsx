@@ -57,10 +57,13 @@ function Comments() {
             <TableHeader>
               <TableRow>
                 <TableHead className="text-black-600 font-bold">Date</TableHead>
-                <TableHead className="text-black-600 font-bold">Blog</TableHead>
+                <TableHead className="text-black-600 font-bold">
+                  Avatar
+                </TableHead>
                 <TableHead className="text-black-600 font-bold">
                   Commented By
                 </TableHead>
+                <TableHead className="text-black-600 font-bold">Blog</TableHead>
                 <TableHead className="text-black-600 font-bold">
                   Comment
                 </TableHead>
@@ -74,11 +77,20 @@ function Comments() {
                 data.data.map((comment) => (
                   <TableRow key={comment._id}>
                     <TableCell>{moment(comment.createdAt).fromNow()}</TableCell>
-                    <TableCell className="break-words whitespace-normal">
-                      {comment.blogid?.title}
+                    <TableCell>
+                      <img
+                        src={comment.user?.avatar}
+                        alt="avatar"
+                        className="w-10 rounded-full"
+                        referrerPolicy="no-referrer"
+                        crossOrigin="anonymous"
+                      />
                     </TableCell>
                     <TableCell className="break-words whitespace-normal">
                       {comment.user?.name}
+                    </TableCell>
+                    <TableCell className="break-words whitespace-normal">
+                      {comment.blogid?.title}
                     </TableCell>
                     <TableCell className="break-words whitespace-normal">
                       {comment?.comment}

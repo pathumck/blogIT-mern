@@ -58,12 +58,12 @@ export const getAllComments = async (req, res, next) => {
     if (user.role === "admin") {
       comments = await Comment.find()
         .populate("blogid", "title")
-        .populate("user", "name")
+        .populate("user", "name avatar")
         .sort({ createdAt: -1 });
     } else {
       comments = await Comment.find({ user: user._id })
         .populate("blogid", "title")
-        .populate("user", "name")
+        .populate("user", "name avatar")
         .sort({ createdAt: -1 });
     }
     res.status(200).json({
