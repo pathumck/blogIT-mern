@@ -17,16 +17,16 @@ function BlogCard({ props }) {
             <div className="flex justify-between items-center gap-2">
               <Avatar>
                 <AvatarImage
-                  src={props.author.avatar || avatar}
+                  src={props.author?.avatar || avatar}
                   referrerPolicy="no-referrer"
                   crossOrigin="anonymous"
                 />
               </Avatar>
               <span className="text-gray-600 font-bold line-clamp-1">
-                {props.author.name}
+                {props.author?.name}
               </span>
             </div>
-            {props.author.role === "admin" && (
+            {props.author?.role === "admin" && (
               <div>
                 <Badge variant="outline" className="bg-orange-500">
                   Admin

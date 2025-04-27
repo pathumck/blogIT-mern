@@ -55,7 +55,7 @@ function Index() {
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
           {blogs.length > 0
             ? blogs.map((blog) => <BlogCard key={blog._id} props={blog} />)
-            : !loading && <div>Data not found</div>}
+            : !loading && data.data.length === 0 && <div>Data not found</div>}
         </div>
       </InfiniteScroll>
     </>

@@ -78,18 +78,22 @@ function BlogByCategory() {
           </div>
         }
         endMessage={
-          <p className="text-center pt-5 text-orange-600 font-bold">
-            You have seen it all...
-          </p>
+          blogs.length > 0 && (
+            <p className="text-center pt-5 text-orange-600 font-bold">
+              You have seen it all...
+            </p>
+          )
         }
       >
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
+        <div className="gap-10 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
           {loading && blogs.length === 0 ? (
             <Loading />
-          ) : blogs.length > 0 ? (
-            blogs.map((blog) => <BlogCard key={blog._id} props={blog} />)
+          ) : !loading && blogs.length === 0 && blogData?.data?.length === 0 ? (
+            <div className="col-span-full flex justify-center items-center pt-5 text-orange-600 font-bold">
+              Category data not found
+            </div>
           ) : (
-            <div>Data not found</div>
+            blogs.map((blog) => <BlogCard key={blog._id} props={blog} />)
           )}
         </div>
       </InfiniteScroll>
