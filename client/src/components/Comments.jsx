@@ -64,7 +64,7 @@ function Comments({ props }) {
   }
   return (
     <div>
-      <h4 className="flex items-center gap-2 text-2xl font-bold text-gray-600">
+      <h4 className="flex items-center gap-2 text-2xl font-bold text-gray-600 mb-2">
         <TfiComments className="text-orange-500" />
         Comments
       </h4>
@@ -77,9 +77,6 @@ function Comments({ props }) {
                 name="comment"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-600 font-semibold">
-                      Comment
-                    </FormLabel>
                     <FormControl>
                       <Textarea placeholder="Type your comment" {...field} />
                     </FormControl>
@@ -89,8 +86,9 @@ function Comments({ props }) {
                 )}
               />
             </div>
-
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="mt-1">
+              Submit
+            </Button>
           </form>
         </Form>
       ) : (
@@ -100,7 +98,9 @@ function Comments({ props }) {
       )}
 
       <div className="border-t mt-5 pt-5">
-        <CommentList props={{ blogid: props.blogid, isCommented: props.isCommentedConst }} />
+        <CommentList
+          props={{ blogid: props.blogid, isCommented: props.isCommentedConst }}
+        />
       </div>
     </div>
   );

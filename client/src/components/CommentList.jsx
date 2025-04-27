@@ -68,8 +68,8 @@ function CommentList({ props }) {
   return (
     <div>
       <h4 className="text-2xl font-bold">
-        <span className="me-2">{(commentCount && commentCount.data) || 0}</span>{" "}
-        Comments
+        <span className="me-2 border-b">{(commentCount && commentCount.data) || 0}  Comments</span>{" "}
+       
       </h4>
 
       <div id="comments" className="max-h-[200px] overflow-y-auto">
