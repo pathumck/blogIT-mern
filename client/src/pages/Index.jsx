@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useFetch } from "@/hooks/useFetch";
 import spinner from "../assets/scroll-spinner.svg";
 import { IoHomeOutline } from "react-icons/io5";
+import Loading from "@/components/Loading";
 
 function Index() {
   const [page, setPage] = useState(1);
@@ -31,9 +32,11 @@ function Index() {
     setPage((prev) => prev + 1);
   };
 
+  if (page === 1 && loading) return <Loading />;
+
   return (
     <>
-      <div className="flex items-center gap-3 pb-2   text-orange-600">
+      <div className="flex items-center gap-3 pb-2 text-orange-600">
         <IoHomeOutline size={22} />
         <h1 className="text-2xl font-bold mt-1">Home</h1>
       </div>
@@ -43,7 +46,11 @@ function Index() {
         hasMore={hasMore}
         loader={
           <div className="flex justify-center items-center">
-            {<img className="w-10" src={spinner} alt="" />}
+            <img
+              src={spinner}
+              alt=""
+              className={loading && page > 1 ? "w-10 block" : "hidden"}
+            />
           </div>
         }
         endMessage={

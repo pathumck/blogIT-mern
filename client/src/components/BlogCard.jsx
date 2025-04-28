@@ -11,7 +11,7 @@ import { RouteBlogDetails } from "@/helpers/RouteName";
 function BlogCard({ props }) {
   return (
     <Link to={RouteBlogDetails(props.category.slug, props.slug)}>
-      <Card className="pt-5 hover:bg-gray-50 hover:shadow-lg transition-all">
+      <Card className="pt-5 hover:bg-gray-50 hover:shadow-lg transition-all min-h-[350px]">
         <CardContent>
           <div className="flex item-center justify-between">
             <div className="flex justify-between items-center gap-2">
@@ -48,7 +48,7 @@ function BlogCard({ props }) {
                 {moment(props.createdAt).fromNow()}
               </span>
             </p>
-            <h2 className="text-1xl font-bold line-clamp-1">{props.title}</h2>
+            <h2 className="text-1xl font-bold line-clamp-2">{props.title}</h2>
           </div>
         </CardContent>
       </Card>

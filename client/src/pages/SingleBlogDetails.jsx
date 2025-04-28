@@ -60,6 +60,7 @@ function SingleBlogDetails() {
               dangerouslySetInnerHTML={{
                 __html: decodeHTML(data.data.blogContent) || "",
               }}
+              className="text-gray-500 font-bold"
             ></div>
             <div className="border-t mt-5 pt-5">
               <Comments props={{ blogid: data.data._id, isCommented : setIsCommented, isCommentedConst: isCommented }} />

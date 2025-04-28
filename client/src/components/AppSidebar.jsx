@@ -41,7 +41,7 @@ export const AppSidebar = () => {
   return (
     <>
       <Sidebar>
-        <SidebarHeader>
+        <SidebarHeader className="bg-white h-16">
           <img src={logo} width={40} alt="logo" />
         </SidebarHeader>
         <SidebarContent  className="bg-white">
@@ -113,7 +113,6 @@ export const AppSidebar = () => {
             </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter  className="bg-white" />
       </Sidebar>
     </>
   );
