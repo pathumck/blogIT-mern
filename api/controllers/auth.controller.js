@@ -49,7 +49,8 @@ export const Login = async (req, res, next) => {
         avatar: user.avatar,
         role: user.role,
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
     );
     res.cookie("access_token", token, {
       httpOnly: true,
@@ -96,7 +97,8 @@ export const GoogleLogin = async (req, res, next) => {
         avatar: user.avatar,
         role: user.role,
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
     );
     res.cookie("access_token", token, {
       httpOnly: true,
