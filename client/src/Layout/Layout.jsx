@@ -11,7 +11,7 @@ function Layout() {
       <Topbar />
       <AppSidebar />
       <main className="w-full">
-        <div className="w-full min-h-[calc(100vh-40px)] pt-20 pb-4 px-10">
+        <div className="w-full min-h-[calc(100vh-40px)] pt-20 pb-4 px-2 sm:px-4 md:px-6 lg:px-10">
           <Outlet />
         </div>
         <Footer />
